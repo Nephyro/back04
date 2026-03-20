@@ -22500,6 +22500,4 @@ var listaDeEstados = {
     ]
 }
 
-module.exports = {
-    listaDeEstados
-}
+module.exports = listaDeEstados;
