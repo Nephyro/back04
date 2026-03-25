@@ -15,9 +15,9 @@ const getListaDeEstados = function(){
     // chamando a biblioteca, buscando pelos estados
     // e criando uma variável chamada estado
     listaDeEstados.estados.forEach(function(estado){
+
         // chamo a array vazia de antes, informo o que quero adicionar (push),
-        // nesse cado as siglas de estado que está no outro arquivo
-        estados.push(estado.sigla)
+        estados.push(estado.sigla)              // nesse cado as siglas de estado que está no outro arquivo
     })
 
     // retorna o array já com as siglas guardadas dentro
@@ -34,6 +34,7 @@ const getDadosEstado = function(uf){
     let resultado
 
     listaDeEstados.estados.forEach(function(infoEstado){
+
         // condição para a repetição continuar
         // caso o conteúdo e o valor digitado condizer com alguma sigla 
         // do arquivo então adiciona (push) as informações na variável que se torna um json
@@ -55,6 +56,7 @@ const getCapitalEstado = function(uf){
     let resultado       //variável que guardará as informações da repetição
 
     listaDeEstados.estados.forEach(function(infoCapital){
+
         // caso a sigla digitada esteja condigente com alguma do outro arquivo
         // então fará um json com a variável para adicionar as informações
         if(infoCapital.sigla === uf.toUpperCase()){
@@ -75,6 +77,7 @@ const getEstadosRegiao = function(regiao){
 
     listaDeEstados.estados.forEach(function(infoRegiao){
         if(infoRegiao.regiao.toLowerCase() === regiao.toLowerCase()){
+
             // Adiciona a sigla e o nome caso seja verdadeiro
             estados.push({
                 uf: infoRegiao.sigla,
@@ -92,12 +95,20 @@ const getEstadosRegiao = function(regiao){
 }
 
 const getCapitalPais = function(){
-    let capitais = []        // array que guardará as informações
+    let capitais = []        // array vazio que irá armazenar as capitais encontradas
 
+    // Percorrerá todos os estados dentro do arquivo
     listaDeEstados.estados.forEach(function(infoCapitalPais){
+
+        // Verifica se existe a propriedade capital_pais e se ela tem ano_inicio
+        // O ?. evita erro caso capital_pais não exista
         if(infoCapitalPais.capital_pais?.ano_inicio){
             capitais.push({
-                capital_atual: infoCapitalPais.capital_pais.ano_fim === false,
+
+                // Verifica se a capital ainda é atual
+                capital_atual: infoCapitalPais.capital_pais.ano_fim === false,          // Se ano_fim for false, significa que ainda é a capital atual
+
+                // Adicionando o que terá tendo do array
                 uf: infoCapitalPais.sigla,
                 descricao: infoCapitalPais.nome,
                 capital: infoCapitalPais.capital,
@@ -112,7 +123,7 @@ const getCapitalPais = function(){
     
 }
 
-// Função que buscará e exibirá todas as cidades de um estado
+// Função que buscará e exibirá todas as cidades de um estado conforme a sigla digitada
 const getCidades = function(uf){
     let resultado
 
@@ -122,7 +133,9 @@ const getCidades = function(uf){
                 uf: infoCidade.sigla,
                 descricao: infoCidade.nome,
                 quantidade_cidades: infoCidade.cidades.length,
-                cidades: infoCidade.cidades.map(cidade => cidade.nome)      //transforma elementos em um novo array
+
+                // 
+                cidades: infoCidade.cidades.map(cidade => cidade.nome)      //cria um novo array transformando os elementos do array original
             }
         }
     })
@@ -134,6 +147,6 @@ const getCidades = function(uf){
 // console.log(getListaDeEstados())
 // console.log(getDadosEstado('SP'))
 // console.log(getCapitalEstado('AC'))
-// console.log(getEstadosRegiao('SUdEsTe'))
+// console.log(getEstadosRegiao('Sul'))
 // console.log(getCapitalPais())
-// console.log(getCidades('MG'))
+// console.log(getCidades('AC'))
